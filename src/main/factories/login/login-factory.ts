@@ -6,9 +6,7 @@ import {
   Controller,
   DbAuthentication,
   JwtAdapter,
-  LogControllerDecorator,
   LoginController,
-  LogMysqlRepository,
 } from "./login-factory-protocols";
 
 export const makeLoginController = (): Controller => {
@@ -22,11 +20,6 @@ export const makeLoginController = (): Controller => {
     jwtAdapter,
     accountMysqlRepository
   );
-  const loginController = new LoginController(
-    dbAuthentication,
-    makeLoginValidation()
-  );
 
-  const logMysqlRepository = new LogMysqlRepository();
-  return new LogControllerDecorator(loginController, logMysqlRepository);
+  return new LoginController(dbAuthentication, makeLoginValidation());
 };

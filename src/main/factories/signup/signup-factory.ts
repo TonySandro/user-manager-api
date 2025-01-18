@@ -8,7 +8,5 @@ export const makeAccountController = (): Controller => {
   const addAccountRepository = new AccountMysqlRepository();
   const bcryptAdapter = new BcryptAdapter(12);
   const addAccount = new DbAddAccount(bcryptAdapter, addAccountRepository);
-  const accountController = new AccountController(addAccount);
-
-  return accountController;
+  return new AccountController(addAccount);
 };
