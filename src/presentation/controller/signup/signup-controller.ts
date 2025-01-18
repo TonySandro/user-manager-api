@@ -12,25 +12,7 @@ export class AccountController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const requiredFields = [
-        "name",
-        "email",
-        "password",
-        "passwordConfirmation",
-      ];
-
-      for (const field of requiredFields) {
-        if (!httpRequest.body[field]) {
-          return badRequest(new MissingParamError(field));
-        }
-      }
-
-      const { name, email, password, passwordConfirmation } = httpRequest.body;
-
-      if (password !== passwordConfirmation) {
-        return badRequest(new MissingParamError("passwordConfirmation"));
-      }
-
+      const { name, email, password } = httpRequest.body;
       await this.addAccount.add({ name, email, password });
 
       return success(httpRequest.body);
