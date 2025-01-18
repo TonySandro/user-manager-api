@@ -1,5 +1,4 @@
 import env from "../../config/env";
-import { makeLoginValidation } from "./login-validation-factory";
 import {
   AccountMysqlRepository,
   BcryptAdapter,
@@ -21,5 +20,5 @@ export const makeLoginController = (): Controller => {
     accountMysqlRepository
   );
 
-  return new LoginController(dbAuthentication, makeLoginValidation());
+  return new LoginController(dbAuthentication);
 };

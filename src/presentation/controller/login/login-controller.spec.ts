@@ -48,7 +48,7 @@ interface SutTypes {
 const makeSut = (): SutTypes => {
   const validationStub = makeValidation();
   const authenticationStub = makeAuthentication();
-  const sut = new LoginController(authenticationStub, validationStub);
+  const sut = new LoginController(authenticationStub);
   return {
     sut,
     authenticationStub,
@@ -95,27 +95,5 @@ describe("Login Controller", () => {
 
     const response = await sut.handle(makeFakeRequest());
     expect(response).toEqual(success({ accessToken: "any_token" }));
-  });
-
-  test("Should call Validation with correct value", async () => {
-    const { sut, validationStub } = makeSut();
-    const validateSpy = jest.spyOn(validationStub, "validate");
-    const httpRequest = makeFakeRequest();
-    await sut.handle(httpRequest);
-
-    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body);
-  });
-
-  test("Should return 400 if Validation returns an error", async () => {
-    const { sut, validationStub } = makeSut();
-    jest
-      .spyOn(validationStub, "validate")
-      .mockReturnValueOnce(new MissingParamError("any_field"));
-
-    const httpResponse = await sut.handle(makeFakeRequest());
-
-    expect(httpResponse).toEqual(
-      badRequest(new MissingParamError("any_field"))
-    );
   });
 });
