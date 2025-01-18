@@ -13,7 +13,6 @@ const makeFakeUserModel = (): UserModel => ({
   email: "any_email@email.com",
   password: "hashed_password",
   accessToken: "any_accessToken",
-  urls: [],
   createdAt: undefined,
   updatedAt: undefined,
   deletedAt: undefined,

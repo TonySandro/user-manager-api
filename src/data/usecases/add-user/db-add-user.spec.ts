@@ -30,7 +30,6 @@ const makeFakeUser = (): UserModel => ({
   email: "valid_email",
   password: "valid_password",
   accessToken: "any_accessToken",
-  urls: [],
   createdAt: undefined,
   updatedAt: undefined,
   deletedAt: undefined,

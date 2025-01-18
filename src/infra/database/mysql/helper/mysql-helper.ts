@@ -25,11 +25,4 @@ export const MysqlHelper = {
 
     await userRepository.remove(user);
   },
-
-  async deleteByOriginalUrl(originalUrl: string): Promise<void> {
-    const repository = AppDataSource.getRepository("url_shorteners");
-    const response = await repository.findOne({ where: { originalUrl } });
-
-    await repository.remove(response);
-  },
 };

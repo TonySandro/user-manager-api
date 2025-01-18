@@ -7,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { UrlShortenerModel } from "./shortener";
 
 @Entity("users")
 export class UserModel {
@@ -25,9 +24,6 @@ export class UserModel {
 
   @Column()
   password: string;
-
-  @OneToMany(() => UrlShortenerModel, (urlShortener) => urlShortener.user)
-  urls: UrlShortenerModel[];
 
   @CreateDateColumn()
   createdAt: Date;
