@@ -1,8 +1,11 @@
-import { UserModel } from "../../../domain/models/user";
-import { AddUser, AddUserModel } from "../../../domain/usecases/add-user";
+import { AccountModel } from "../../../domain/models/account";
+import {
+  AddAccount,
+  AddAccountModel,
+} from "../../../domain/usecases/add-account";
 import { ServerError, MissingParamError } from "../../errors";
-import { serverError, success } from "../../helpers/http/http-helper";
-import { UserRegistrationController } from "./user-registration-controller";
+import { success } from "../../helpers/http/http-helper";
+import { AccountController } from "./account-controller";
 
 const makeHttpRequest = () => ({
   body: {
@@ -13,10 +16,10 @@ const makeHttpRequest = () => ({
   },
 });
 
-const makeAddUser = (): AddUser => {
-  class AddUserStub implements AddUser {
-    async add(user: AddUserModel): Promise<UserModel> {
-      const FakeUser = {
+const makeAddAccount = (): AddAccount => {
+  class AddAccountStub implements AddAccount {
+    async add(account: AddAccountModel): Promise<AccountModel> {
+      const FakeAccount = {
         id: "valid_id",
         name: "valid_name",
         email: "valid_email",
@@ -28,24 +31,24 @@ const makeAddUser = (): AddUser => {
         deletedAt: null,
       };
 
-      return new Promise((resolve) => resolve(FakeUser));
+      return new Promise((resolve) => resolve(FakeAccount));
     }
   }
 
-  return new AddUserStub();
+  return new AddAccountStub();
 };
 
 const makeSut = () => {
-  const addUserStub = makeAddUser();
-  const sut = new UserRegistrationController(addUserStub);
+  const addAccountStub = makeAddAccount();
+  const sut = new AccountController(addAccountStub);
 
   return {
     sut,
-    addUserStub,
+    addAccountStub,
   };
 };
 
-describe("User Registration Controller", () => {
+describe("Account Registration Controller", () => {
   test("Should return 200 if success", async () => {
     const { sut } = makeSut();
     const httpRequest = makeHttpRequest();
@@ -112,9 +115,9 @@ describe("User Registration Controller", () => {
     );
   });
 
-  test("Should call AddUser with correct values", async () => {
-    const { sut, addUserStub } = makeSut();
-    const addSpy = jest.spyOn(addUserStub, "add");
+  test("Should call AddAccount with correct values", async () => {
+    const { sut, addAccountStub } = makeSut();
+    const addSpy = jest.spyOn(addAccountStub, "add");
 
     await sut.handle(makeHttpRequest());
     expect(addSpy).toHaveBeenCalledWith({
@@ -124,9 +127,9 @@ describe("User Registration Controller", () => {
     });
   });
 
-  test("Should return 500 if AddUser throws", async () => {
-    const { sut, addUserStub } = makeSut();
-    jest.spyOn(addUserStub, "add").mockImplementationOnce(() => {
+  test("Should return 500 if AddAccount throws", async () => {
+    const { sut, addAccountStub } = makeSut();
+    jest.spyOn(addAccountStub, "add").mockImplementationOnce(() => {
       throw new Error();
     });
 

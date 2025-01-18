@@ -1,5 +1,5 @@
 import { LogErrorRepository } from "../../data/protocols/database";
-import { UserModel } from "../../domain/models/user";
+import { AccountModel } from "../../domain/models/account";
 import {
   serverError,
   success,
@@ -14,7 +14,7 @@ import { LogControllerDecorator } from "./log-controller";
 const makeController = (): Controller => {
   class ControllerStub implements Controller {
     async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-      return new Promise((resolve) => resolve(success(makeFakeUser())));
+      return new Promise((resolve) => resolve(success(makeFakeAccount())));
     }
   }
 
@@ -40,7 +40,7 @@ const makeFakeRequest = (): HttpRequest => ({
   },
 });
 
-const makeFakeUser = (): UserModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: "valid_id",
   name: "valid_name",
   email: "valid_email@email.com",
@@ -92,7 +92,7 @@ describe("Log Controller Decorator", () => {
     const { sut } = makeSut();
 
     const httpResponse = await sut.handle(makeFakeRequest());
-    expect(httpResponse).toEqual(success(makeFakeUser()));
+    expect(httpResponse).toEqual(success(makeFakeAccount()));
   });
 
   test("Should call LogErrorRepository with correct error if controller returns a sever error", async () => {

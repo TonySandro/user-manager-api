@@ -19,10 +19,10 @@ export const MysqlHelper = {
     return AppDataSource.getRepository(entity);
   },
 
-  async deleteUserByEmail(email: string): Promise<void> {
-    const userRepository = AppDataSource.getRepository("users");
-    const user = await userRepository.findOne({ where: { email } });
+  async deleteAccountByEmail(email: string): Promise<void> {
+    const accountRepository = AppDataSource.getRepository("accounts");
+    const account = await accountRepository.findOne({ where: { email } });
 
-    await userRepository.remove(user);
+    await accountRepository.remove(account);
   },
 };

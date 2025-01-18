@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import { UserModel } from "../../domain/models/user";
+import { AccountModel } from "../../domain/models/account";
 import { ErrorLog } from "../../domain/models/error-log";
 
 export const AppDataSource = new DataSource({
@@ -11,5 +11,5 @@ export const AppDataSource = new DataSource({
   database: "course-platform",
   synchronize: true,
   logging: false,
-  entities: [UserModel, ErrorLog],
+  entities: [AccountModel, ErrorLog],
 });

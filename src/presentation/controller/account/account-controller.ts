@@ -1,4 +1,4 @@
-import { AddUser } from "../../../domain/usecases/add-user";
+import { AddAccount } from "../../../domain/usecases/add-account";
 import { MissingParamError } from "../../errors";
 import {
   badRequest,
@@ -7,8 +7,8 @@ import {
 } from "../../helpers/http/http-helper";
 import { Controller, HttpRequest, HttpResponse } from "../../protocols";
 
-export class UserRegistrationController implements Controller {
-  constructor(private readonly addUser: AddUser) {}
+export class AccountController implements Controller {
+  constructor(private readonly addAccount: AddAccount) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
@@ -31,7 +31,7 @@ export class UserRegistrationController implements Controller {
         return badRequest(new MissingParamError("passwordConfirmation"));
       }
 
-      await this.addUser.add({ name, email, password });
+      await this.addAccount.add({ name, email, password });
 
       return success(httpRequest.body);
     } catch (error) {

@@ -5,7 +5,7 @@ export * from "../../../data/usecases/authentication/db-authentication";
 export * from "../../../presentation/controller/login/login-controller";
 export * from "../../../infra/database/mysql/log/log-mysql-repository";
 export * from "../../decorators/log-controller";
-export * from "../../../infra/database/mysql/user-repository/user-mysql-repository";
+export * from "../../../infra/database/mysql/account-repository/account-mysql-repository";
 export * from "../../../presentation/helpers/validators/email-validation";
 export * from "../../../presentation/helpers/validators/required-field-validation";
 export * from "../../../presentation/helpers/validators/validation-composite";

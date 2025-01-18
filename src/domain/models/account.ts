@@ -3,13 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 
-@Entity("users")
-export class UserModel {
+@Entity("accounts")
+export class AccountModel {
   @PrimaryGeneratedColumn()
   id: string;
 
