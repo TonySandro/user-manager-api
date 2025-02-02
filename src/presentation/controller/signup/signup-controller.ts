@@ -1,10 +1,5 @@
 import { AddAccount } from "../../../domain/usecases/add-account";
-import { MissingParamError } from "../../errors";
-import {
-  badRequest,
-  serverError,
-  success,
-} from "../../helpers/http/http-helper";
+import { serverError, success } from "../../helpers/http/http-helper";
 import { Controller, HttpRequest, HttpResponse } from "../../protocols";
 
 export class AccountController implements Controller {
