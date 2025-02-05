@@ -1,6 +1,5 @@
 import { Authentication } from "../../../domain/usecases/authentication";
 import {
-  badRequest,
   serverError,
   unauthorized,
   success,
@@ -9,7 +8,6 @@ import {
   Controller,
   HttpRequest,
   HttpResponse,
-  Validation,
 } from "./login-controller-protocols";
 
 export class LoginController implements Controller {
