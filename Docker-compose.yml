@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   mysql:
-    container_name: mysql-container
+    container_name: account-mysql-db
     image: mysql/mysql-server:latest
     restart: always
     env_file: ./.env
