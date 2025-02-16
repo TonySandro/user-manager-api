@@ -7,4 +7,6 @@ COPY ./package.json .
 RUN npm install -g nodemon
 COPY . .
 RUN npm run build
-CMD ["npm", "run", "start"]
+
+EXPOSE 5053
+CMD ["npm", "run", "start", "--host", "0.0.0.0"]

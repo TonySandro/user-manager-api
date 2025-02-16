@@ -1,5 +1,9 @@
 version: "3.8"
 
+networks:
+  course-network:
+    external: true
+
 services:
   mysql:
     container_name: account-mysql-db
@@ -13,6 +17,8 @@ services:
       - mysql_data:/var/lib/mysql
     ports:
       - "$MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT"
+    networks:
+      - course-network
 
   api:
     container_name: api-container
@@ -32,6 +38,8 @@ services:
       sh -c "npm install --omit=dev && npm run start"
     ports:
       - "5053:5053"
+    networks:
+      - course-network
     volumes:
       - ./dist:/usr/src/user-manager-api/dist/
       - ./package.json:/usr/src/user-manager-api/package.json
