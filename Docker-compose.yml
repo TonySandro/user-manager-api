@@ -22,7 +22,7 @@ services:
       - course-network
 
   api:
-    container_name: api-container
+    container_name: user-manager-container
     build:
       context: .
     image: node:20
