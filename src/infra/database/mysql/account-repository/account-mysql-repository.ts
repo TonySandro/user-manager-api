@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+import { addHours } from "date-fns";
 import {
   LoadAccountByEmailRepository,
   UpdateAccessTokenRepository,
@@ -7,6 +9,7 @@ import { AccountModel } from "../../../../domain/models/account";
 import { AddAccountModel } from "../../../../domain/usecases/add-account";
 import { AppDataSource } from "../../../../main/config/typeorm.config";
 import { MysqlHelper } from "../helper/mysql-helper";
+import { EmailTokenGenerator } from "../helper/token-generator-helper";
 
 export class AccountMysqlRepository
   implements
@@ -16,8 +19,14 @@ export class AccountMysqlRepository
 {
   async add(account: AddAccountModel): Promise<AccountModel> {
     const accountRepository = AppDataSource.getRepository(AccountModel);
+    const { token, expiresAt } = EmailTokenGenerator.generate();
 
-    const newAccount = accountRepository.create(account);
+    const newAccount = accountRepository.create({
+      ...account,
+      isConfirmed: false,
+      emailConfirmationToken: token,
+      emailConfirmationExpiresAt: expiresAt,
+    });
 
     return await accountRepository.save(newAccount);
   }

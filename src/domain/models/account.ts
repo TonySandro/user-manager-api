@@ -9,7 +9,7 @@ import {
 
 @Entity("accounts")
 export class AccountModel {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
@@ -23,6 +23,15 @@ export class AccountModel {
 
   @Column()
   password: string;
+
+  @Column({ default: false })
+  isConfirmed: boolean;
+
+  @Column({ nullable: true })
+  emailConfirmationToken: string;
+
+  @Column({ nullable: true })
+  emailConfirmationExpiresAt: Date;
 
   @CreateDateColumn()
   createdAt: Date;
