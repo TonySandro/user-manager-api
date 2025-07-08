@@ -25,11 +25,13 @@ describe("Account Mysql repository", () => {
       name: "any_name",
       email: "any_email@email.com",
       password: "any_password",
+      emailConfirmationToken: "any_emailConfirmationToken",
     });
 
     expect(account).toBeTruthy();
     expect(account.name).toBe("any_name");
     expect(account.email).toBe("any_email@email.com");
+    expect(account.emailConfirmationToken).toBe("any_emailConfirmationToken");
     expect(account.password).toBeDefined();
   });
 });

@@ -20,6 +20,9 @@ const makeFakeAccount = (): AccountModel => ({
   email: "valid_email",
   password: "valid_password",
   accessToken: "any_accessToken",
+  isConfirmed: false,
+  emailConfirmationToken: "any_emailConfirmationToken",
+  emailConfirmationExpiresAt: undefined,
   createdAt: undefined,
   updatedAt: undefined,
   deletedAt: undefined,
@@ -29,6 +32,7 @@ const makeFakeAccountData = (): AddAccountModel => ({
   name: "valid_name",
   email: "valid_email",
   password: "valid_password",
+  emailConfirmationToken: "any_emailConfirmationToken",
 });
 
 interface SutTypes {
@@ -56,6 +60,7 @@ describe("DB AddAccount Usecase", () => {
       name: "valid_name",
       email: "valid_email",
       password: "valid_password",
+      emailConfirmationToken: "any_emailConfirmationToken",
     });
   });
 
