@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
-import { AppDataSource } from "../config/typeorm.config";
-import { AccountModel } from "../../domain/models/account";
+import { AppDataSource } from "./config/typeorm.config";
+import { AccountModel } from "../domain/models/account";
 
 const confirmationRoute = Router();
 

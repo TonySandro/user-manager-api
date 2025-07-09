@@ -1,6 +1,6 @@
 import { Express, Router } from "express";
 import { readdirSync } from "node:fs";
-import confirmationRoute from "../routes/email-confirmation";
+import confirmationRoute from "../email-confirmation";
 
 export default (app: Express): void => {
   const router = Router();
