@@ -1,6 +1,8 @@
 import { DataSource } from "typeorm";
 import { AccountModel } from "../../domain/models/account";
 import { env } from "process";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export const AppDataSource = new DataSource({
   type: "mysql",
