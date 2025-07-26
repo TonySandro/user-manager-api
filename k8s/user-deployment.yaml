@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-manager
+  template:
+    metadata:
+      labels:
+        app: user-manager
+    spec:
+      containers:
+        - name: user-manager
+          image: user-manager-api:local
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5053
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: PORT
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: DB_HOST
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: DB_PASSWORD
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: DB_NAME
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: DB_PORT
+            - name: JWT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: JWT_SECRET
+            - name: RESEND_API_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: RESEND_API_KEY

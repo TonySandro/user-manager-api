@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-mysql-config
+data:
+  MYSQLDB_DATABASE: "account-mysql-db"
+  MYSQLDB_ROOT_PASSWORD: "admintsd"

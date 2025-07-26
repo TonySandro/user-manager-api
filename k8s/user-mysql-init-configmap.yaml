@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-mysql-init
+data:
+  init.sql: |
+    CREATE USER 'admin'@'%' IDENTIFIED BY 'admintsd';
+    GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION;
+    FLUSH PRIVILEGES;
