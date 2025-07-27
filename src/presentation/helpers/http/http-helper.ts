@@ -25,3 +25,8 @@ export const success = (data: any): HttpResponse => ({
   statusCode: 200,
   body: data,
 });
+
+export const serviceUnavailable = (data: any): HttpResponse => ({
+  statusCode: 503,
+  body: data,
+});
