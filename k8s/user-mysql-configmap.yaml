@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: user-mysql-config
 data:
-  MYSQLDB_DATABASE: "account-mysql-db"
+  MYSQLDB_DATABASE: "neuroapp_database"
   MYSQLDB_ROOT_PASSWORD: "admintsd"

@@ -6,7 +6,7 @@ networks:
 
 services:
   mysql:
-    container_name: account-mysql-db
+    container_name: neuroapp_database
     image: mysql/mysql-server:latest
     restart: always
     env_file: ./.env

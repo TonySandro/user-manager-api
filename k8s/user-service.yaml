@@ -7,6 +7,7 @@ spec:
     app: user-manager
   type: NodePort
   ports:
-    - port: 5053
+    - name: http
+      port: 5053
       targetPort: 5053
       nodePort: 30006

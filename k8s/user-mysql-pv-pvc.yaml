@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/tmp/user-mysql-data"
+    path: "/data/user-mysql-data"
   persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
