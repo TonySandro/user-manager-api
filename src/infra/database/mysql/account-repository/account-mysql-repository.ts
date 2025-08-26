@@ -1,10 +1,9 @@
-import { randomUUID } from "crypto";
-import { addHours } from "date-fns";
 import {
   LoadAccountByEmailRepository,
   UpdateAccessTokenRepository,
 } from "../../../../data/protocols/database";
 import { AddAccountRepository } from "../../../../data/protocols/database/add-account-repository";
+import { GetAllAccountsRepository } from "../../../../data/protocols/database/get-all-accounts-repository";
 import { AccountModel } from "../../../../domain/models/account";
 import { AddAccountModel } from "../../../../domain/usecases/add-account";
 import { AppDataSource } from "../../../../main/config/typeorm.config";
@@ -15,7 +14,8 @@ export class AccountMysqlRepository
   implements
     AddAccountRepository,
     LoadAccountByEmailRepository,
-    UpdateAccessTokenRepository
+    UpdateAccessTokenRepository,
+    GetAllAccountsRepository
 {
   async add(account: AddAccountModel): Promise<AccountModel> {
     const accountRepository = AppDataSource.getRepository(AccountModel);
@@ -40,5 +40,10 @@ export class AccountMysqlRepository
   async updateAccessToken(id: string, token: string): Promise<void> {
     const accountCollection = await MysqlHelper.getRepository(AccountModel);
     await accountCollection.update(id, { accessToken: token });
+  }
+
+  async getAllAccounts(): Promise<AccountModel[]> {
+    const accountCollection = await MysqlHelper.getRepository(AccountModel);
+    return await accountCollection.find();
   }
 }
