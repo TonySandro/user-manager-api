@@ -4,8 +4,8 @@ import { AppDataSource } from "./config/typeorm.config";
 AppDataSource.initialize()
   .then(async () => {
     const app = (await import("./config/app")).default;
-    app.listen(env.port, () =>
-      console.log(`server running at http://localhost:${env.port}`)
-    );
+    app.listen(Number(env.port), "0.0.0.0", () => {
+      console.log(`Server running on port ${env.port}`);
+    });
   })
   .catch(console.error);
