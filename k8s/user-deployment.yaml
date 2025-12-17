@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user-manager
+  labels:
+    app: user-manager
 spec:
   replicas: 1
   selector:
@@ -15,9 +17,10 @@ spec:
       containers:
         - name: user-manager
           image: user-manager-api:local
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 5053
+            - containerPort: 3000
+
           env:
             - name: PORT
               valueFrom:
@@ -34,11 +37,6 @@ spec:
                 configMapKeyRef:
                   name: user-config
                   key: DB_USER
-            - name: DB_PASSWORD
-              valueFrom:
-                configMapKeyRef:
-                  name: user-config
-                  key: DB_PASSWORD
             - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
@@ -49,13 +47,42 @@ spec:
                 configMapKeyRef:
                   name: user-config
                   key: DB_PORT
+
+            # sensíveis -> Secret (recomendado)
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: user-secrets
+                  key: DB_PASSWORD
             - name: JWT_SECRET
               valueFrom:
-                configMapKeyRef:
-                  name: user-config
+                secretKeyRef:
+                  name: user-secrets
                   key: JWT_SECRET
             - name: RESEND_API_KEY
               valueFrom:
-                configMapKeyRef:
-                  name: user-config
+                secretKeyRef:
+                  name: user-secrets
                   key: RESEND_API_KEY
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 20
+            periodSeconds: 20
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
